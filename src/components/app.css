@@ -1,0 +1,19 @@
+.wrapper {
+    display: block;
+    margin: 30px auto;
+    padding: 30px 15px;
+    max-width: 600px;
+    border: 1px solid #d0d4dc;
+    border-radius: 3px;
+}
+
+.fieldRow {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.uploadedText {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #e2e6eb;
+}
