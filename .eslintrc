@@ -7,6 +7,10 @@
     "rules": {
         "no-case-declarations": 0,
         "no-underscore-dangle": 0,
+        "no-mixed-operators": [
+            "error",
+            { "allowSamePrecedence": true }
+        ],
         "import/no-extraneous-dependencies": [
             "error",
             { "devDependencies": true }
