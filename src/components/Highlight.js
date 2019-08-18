@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Highlighter from 'react-highlight-words';
 
-
 const findChunksLastChars = ({
     // autoEscape,
     // caseSensitive,
@@ -13,45 +12,40 @@ const findChunksLastChars = ({
     const chunks = [];
     const textLow = textToHighlight.toLowerCase();
 
-    // Match at the beginning of each new word
-    const sep = /[-,.;:?\s]+/;
-
-    const singleTextWords = textLow.split(sep);
-    let fromIndex = 0;
-
-    const singleTextWordsWithPos = singleTextWords.map((s) => {
-        const indexInWord = textLow.indexOf(s, fromIndex);
-        fromIndex = indexInWord;
-
-        return {
-            word: s,
-            index: indexInWord,
-        };
-    });
-
     searchWords.forEach((sw) => {
         const searchWord = sw.toLowerCase();
-        // Do it for every single text word
-        singleTextWordsWithPos.forEach((textWord) => {
-            if (textWord.word.includes(searchWord)) {
-                const start = textWord.word.indexOf(searchWord) + textWord.index;
-                const end = start + searchWord.length;
+
+        for (let i = 0; i <= textLow.length; i += 1) {
+            let end = 0;
+            let slice = textLow.substr(i, searchWord.length + 1);
+            const re = /\.|,|\?|-|:|\s+/;
+
+            let q = i;
+            while (slice.match(re)) {
+                const indexOfSpace = slice.match(re).index;
+                const charSym = slice.charAt(indexOfSpace);
+
+                if (indexOfSpace > -1) {
+                    slice = slice.replace(charSym, '');
+
+                    if (slice.length < searchWord.length) {
+                        const char = textLow.charAt(slice.length + q + 1);
+                        slice = `${slice}${char}`;
+                    }
+                    end += 1;
+                }
+                q += 1;
+            }
+
+            if (slice === searchWord) {
+                const start = i;
+                end = end + start + searchWord.length;
+
                 chunks.push({
                     start,
                     end,
                 });
             }
-        });
-
-        // The complete word including whitespace should also be handled, e.g.
-        // searchWord='Angela Mer' should be highlighted in 'Angela Merkel'
-        if (textLow.startsWith(searchWord)) {
-            const start = 0;
-            const end = searchWord.length;
-            chunks.push({
-                start,
-                end,
-            });
         }
     });
 
@@ -66,7 +60,7 @@ export function Highlight(props) {
             searchWords={searchWords}
             textToHighlight={textToHighlight}
             autoEscape
-            // findChunks={findChunksLastChars}
+            findChunks={findChunksLastChars}
         />
     );
 }

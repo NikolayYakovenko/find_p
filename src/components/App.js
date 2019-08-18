@@ -10,7 +10,7 @@ import './app.css';
 
 export default class App extends React.Component {
     state = {
-        text: 'А роза упала на лапу Азора',
+        text: 'А роза, упала. На лапу Азора',
         longest: null,
         allPalindromes: ['Not parsed yet...'],
         allPalindromesInit: [],

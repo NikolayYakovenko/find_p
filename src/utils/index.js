@@ -48,7 +48,7 @@ export function getLongestPalindrome(str) {
             RL[i] = 0;
         }
 
-        while (s[i + 1 + RL[i]] === s[i - 1 - RL[i]]) {
+        while (i + RL[i] < s.length && i - RL[i] >= 0 && s[i + RL[i]] === s[i - RL[i]]) {
             RL[i] += 1;
         }
 
