@@ -15,6 +15,7 @@ export function Highlight(props) {
             searchWords={searchWords}
             textToHighlight={textToHighlight}
             autoEscape
+            highlightClassName='highlighted'
             findChunks={findChunksToHighlight}
         />
     );

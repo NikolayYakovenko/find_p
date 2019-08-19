@@ -5,9 +5,7 @@
 npm install
 ```
 
-##### Build JS bundle:
+##### Run webpack-dev-server:
 ```
-npm run dev
+npm run start
 ```
-
-##### Open dist/index.html

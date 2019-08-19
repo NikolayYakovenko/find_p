@@ -72,21 +72,25 @@ export default class App extends React.Component {
             <form className='wrapper' onSubmit={this.formSubmit}>
                 <fieldset className='fieldRow'>
                     <div className='fileUploadWrapper'>
-                        <FileUpload handleFileUpload={this.handleFileUpload} />
-                        <button
-                            type='button'
-                            className='button buttonThemeSimple'
-                            onClick={this.clearText}
-                        >
-                            Clear text
-                        </button>
+                        <div className='fileUploadItem'>
+                            <FileUpload handleFileUpload={this.handleFileUpload} />
+                        </div>
+                        <div className='fileUploadItem'>
+                            <button
+                                type='button'
+                                className='button buttonThemeSimple'
+                                onClick={this.clearText}
+                            >
+                                Clear text
+                            </button>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <label className='label' htmlFor='parsedText'>
                         Parsed text
                         <textarea
-                            className='uploadedText'
+                            className='textField'
                             value={this.state.text}
                             id='parsedText'
                             rows={5}
@@ -98,26 +102,19 @@ export default class App extends React.Component {
                 <fieldset className='fieldRow'>
                     <div className='search'>
                         <input
-                            className='searchField'
+                            className='textField searchField'
                             type='text'
                             id='searchField'
-                            placeholder='Type a palindrome'
+                            placeholder='Filter palindrome by name'
                             onChange={this.handleSearch}
                         />
-                        <button
-                            type='button'
-                            className='button searchButton'
-                            onChange={this.handleSearch}
-                        >
-                            Palindrome search
-                        </button>
                     </div>
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <label className='label' htmlFor='allPalindromes'>
                         All palindromes
                         <textarea
-                            className='uploadedText'
+                            className='textField'
                             value={this.state.allPalindromes.join(' ')}
                             id='allPalindromes'
                             readOnly
@@ -137,7 +134,7 @@ export default class App extends React.Component {
                         <label className='label' htmlFor='longest'>
                             Longest palindrome
                             <textarea
-                                className='uploadedText'
+                                className='textField'
                                 value={this.state.longestPalindrom}
                                 id='longest'
                                 readOnly

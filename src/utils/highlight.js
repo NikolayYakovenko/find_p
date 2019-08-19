@@ -2,7 +2,7 @@ export function findChunksToHighlight({ searchWords, textToHighlight }) {
     const chunks = [];
     const textLower = textToHighlight.toLowerCase();
     // simple regexp to find non letter symbols
-    const re = /[.,?\-:;=+#%()*\s]+/;
+    const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
 
     searchWords.forEach((word) => {
         const searchWord = word.toLowerCase();
