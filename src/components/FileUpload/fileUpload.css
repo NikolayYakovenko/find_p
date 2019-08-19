@@ -1,0 +1,26 @@
+.fileUploadInput {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.fileUploadLabel {
+    display: inline-block;
+    margin-right: 30px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #d3394c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.fileUploadIcon {
+    display: inline-block;
+    margin-right: 10px;
+    fill: currentColor;
+}

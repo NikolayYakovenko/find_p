@@ -5,8 +5,8 @@ import '../styles/base.css';
 
 import { getAllPalindromesData } from '../utils/palindromes';
 
-import { Highlight } from './Highlight';
-import { FileUpload } from './FileUpload';
+import { Highlight } from './Highlight/highlight';
+import { FileUpload } from './FileUpload/fileUpload';
 
 import './app.css';
 
