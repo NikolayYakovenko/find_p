@@ -10,23 +10,74 @@
 
 .fieldRow {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .label {
     font-weight: bold;
 }
 
-button, input[type=file] {
-    display: inline-block;
-    font-size: 16px;
-    height: 40px;
-    min-width: 150px;
+.fileUploadWrapper {
+    padding: 30px;
+    background-color: #d0d4dc;
+    text-align: center;
 }
 
-mark {
-    background-color: red;
+.search {
+    display: flex;
+    flex-direction: row;
 }
+
+.button {
+    flex: 0 0 200px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #d3394c;
+    color: #fff;
+    cursor: pointer;
+    border: 2px solid #d3394c;
+    outline: 0 none;
+    transition: all 0.1s linear;
+}
+
+.button:hover,
+.button:active {
+    background-color: #ba5863;
+}
+
+.searchButton {
+    border-radius: 0 3px 3px 0;
+}
+
+.buttonThemeSimple {
+    background-color: #fff;
+    color: #d3394c;
+    border-radius: 3px;
+}
+
+.buttonThemeSimple:hover,
+.buttonThemeSimple:active {
+    background-color: #ffa3ae;
+    color: #fff;
+}
+
+.searchField {
+    margin-right: -2px;
+    border-radius: 3px 0 0 3px;
+    outline: 0 none;
+}
+.searchField:focus {
+    border-color: #3960d3;
+}
+
+.fileUploadInput:focus + .fileUploadLabel,
+.fileUploadInput + .fileUploadLabel:hover {
+    background-color: #ba5863;
+}
+
+
+
 
 textarea {
     padding: 10px;
@@ -37,6 +88,11 @@ textarea {
     border: 1px solid #d0d4dc;
     background-color: #fff;
     font: 16px/18px Arial, sans-serif;
+    outline: 0 none;
+}
+
+textarea:focus {
+    border-color: #3960d3;
 }
 
 input[type=text] {

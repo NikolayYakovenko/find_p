@@ -1,11 +1,12 @@
 import React from 'react';
 
+import '../styles/reset.css';
+import '../styles/base.css';
+
 import { getAllPalindromesData } from '../utils/palindromes';
 
 import { Highlight } from './Highlight';
-
-import '../styles/reset.css';
-import '../styles/base.css';
+import { FileUpload } from './FileUpload';
 
 import './app.css';
 
@@ -15,7 +16,7 @@ export default class App extends React.Component {
         text: 'А роза, упала. На лапу Азора',
         longestPalindrom: null,
         allPalindromes: [],
-        allPalindromesInit: [],
+        allPalindromesInitial: [],
     };
 
     componentDidMount() {
@@ -35,6 +36,15 @@ export default class App extends React.Component {
         }
     }
 
+    clearText = () => {
+        this.setState({
+            text: '',
+            allPalindromes: [],
+            allPalindromesInitial: [],
+            longestPalindrom: null,
+        });
+    }
+
     handleTextChange = (text) => {
         const { allPalindromes, longestPalindrom } = getAllPalindromesData(text);
 
@@ -42,32 +52,35 @@ export default class App extends React.Component {
             text,
             allPalindromes,
             longestPalindrom,
-            allPalindromesInit: allPalindromes,
+            allPalindromesInitial: allPalindromes,
         });
     }
 
     handleSearch = (event) => {
         const text = event.target.value.trim();
-        const { allPalindromesInit } = this.state;
+        const { allPalindromesInitial } = this.state;
 
         this.setState({
-            allPalindromes: allPalindromesInit.filter(p => p.includes(text)),
+            allPalindromes: allPalindromesInitial.filter(p => p.includes(text)),
         });
     }
 
+    formSubmit = event => event.preventDefault();
+
     render() {
         return (
-            <form className='wrapper'>
+            <form className='wrapper' onSubmit={this.formSubmit}>
                 <fieldset className='fieldRow'>
-                    <label htmlFor='textField'>
-                        <p className='label'>Load text file</p>
-                        <input
-                            type='file'
-                            accept='.txt'
-                            id='textField'
-                            onChange={this.handleFileUpload}
-                        />
-                    </label>
+                    <div className='fileUploadWrapper'>
+                        <FileUpload handleFileUpload={this.handleFileUpload} />
+                        <button
+                            type='button'
+                            className='button buttonThemeSimple'
+                            onClick={this.clearText}
+                        >
+                            Clear text
+                        </button>
+                    </div>
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <label className='label' htmlFor='parsedText'>
@@ -77,20 +90,28 @@ export default class App extends React.Component {
                             value={this.state.text}
                             id='parsedText'
                             rows={5}
+                            placeholder='Type a text'
                             onChange={event => this.handleTextChange(event.target.value)}
                         />
                     </label>
                 </fieldset>
                 <fieldset className='fieldRow'>
-                    <label htmlFor='searchField'>
-                        <p className='label'>Palindrome search</p>
+                    <div className='search'>
                         <input
+                            className='searchField'
                             type='text'
                             id='searchField'
                             placeholder='Type a palindrome'
                             onChange={this.handleSearch}
                         />
-                    </label>
+                        <button
+                            type='button'
+                            className='button searchButton'
+                            onChange={this.handleSearch}
+                        >
+                            Palindrome search
+                        </button>
+                    </div>
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <label className='label' htmlFor='allPalindromes'>
@@ -100,6 +121,7 @@ export default class App extends React.Component {
                             value={this.state.allPalindromes.join(' ')}
                             id='allPalindromes'
                             readOnly
+                            placeholder='Here will be all found palindromes'
                             rows={5}
                         />
                     </label>
