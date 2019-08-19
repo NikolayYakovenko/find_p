@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { getLongestPalindrome, getAllPalindromes } from '../utils';
+import { getAllPalindromesData } from '../utils/palindromes';
+
 import { Highlight } from './Highlight';
 
 import '../styles/reset.css';
@@ -8,11 +9,12 @@ import '../styles/base.css';
 
 import './app.css';
 
+
 export default class App extends React.Component {
     state = {
         text: 'А роза, упала. На лапу Азора',
-        longest: null,
-        allPalindromes: ['Not parsed yet...'],
+        longestPalindrom: null,
+        allPalindromes: [],
         allPalindromesInit: [],
     };
 
@@ -23,6 +25,7 @@ export default class App extends React.Component {
     handleFileUpload = (event) => {
         const { files } = event.target;
         const reader = new FileReader();
+
         if (files && files.length) {
             reader.addEventListener('load', (eventValue) => {
                 this.handleTextChange(eventValue.target.result);
@@ -33,13 +36,12 @@ export default class App extends React.Component {
     }
 
     handleTextChange = (text) => {
-        const longest = getLongestPalindrome(text);
-        const allPalindromes = getAllPalindromes(text);
+        const { allPalindromes, longestPalindrom } = getAllPalindromesData(text);
 
         this.setState({
             text,
-            longest,
             allPalindromes,
+            longestPalindrom,
             allPalindromesInit: allPalindromes,
         });
     }
@@ -47,6 +49,7 @@ export default class App extends React.Component {
     handleSearch = (event) => {
         const text = event.target.value.trim();
         const { allPalindromesInit } = this.state;
+
         this.setState({
             allPalindromes: allPalindromesInit.filter(p => p.includes(text)),
         });
@@ -107,13 +110,13 @@ export default class App extends React.Component {
                         textToHighlight={this.state.text}
                     />
                 </fieldset>
-                {this.state.longest ?
+                {this.state.longestPalindrom ?
                     <fieldset className='fieldRow'>
                         <label className='label' htmlFor='longest'>
                             Longest palindrome
                             <textarea
                                 className='uploadedText'
-                                value={this.state.longest}
+                                value={this.state.longestPalindrom}
                                 id='longest'
                                 readOnly
                                 rows={2}
