@@ -14,6 +14,7 @@ export function Highlight(props) {
             textToHighlight={textToHighlight}
             autoEscape
             highlightClassName='highlighted'
+            findChunks={() => props.indexesForHighlight}
         />
     );
 }
@@ -21,4 +22,5 @@ export function Highlight(props) {
 Highlight.propTypes = {
     searchWords: PropTypes.array.isRequired,
     textToHighlight: PropTypes.string,
+    indexesForHighlight: PropTypes.array,
 };

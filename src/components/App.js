@@ -22,6 +22,7 @@ export default class App extends React.Component {
         textFromInput: '',
         longestPalindrom: null,
         allPalindromes: [],
+        indexesForHighlight: [],
     };
 
     componentDidMount() {
@@ -56,12 +57,13 @@ export default class App extends React.Component {
     }
 
     findPalindrom = (text) => {
-        const { allPalindromes, longestPalindrom } = getAllPalindromesData(text);
+        const { allPalindromes, longestPalindrom, indexes } = getAllPalindromesData(text);
 
         this.setState({
             text,
             allPalindromes,
             longestPalindrom,
+            indexesForHighlight: indexes,
         });
     }
 
@@ -101,6 +103,7 @@ export default class App extends React.Component {
                         <Highlight
                             searchWords={this.state.allPalindromes}
                             textToHighlight={this.state.text}
+                            indexesForHighlight={this.state.indexesForHighlight}
                         />
                     </fieldset>
                     : null
@@ -130,7 +133,9 @@ export default class App extends React.Component {
                         All found palindromes
                     </p>
                     {this.state.allPalindromes.length ?
-                        this.state.allPalindromes.map(p => <div className='palindrom'>{p}</div>)
+                        this.state.allPalindromes.map(p => (
+                            <div className='palindrom' key={p}>{p}</div>
+                        ))
                         :
                         <span className='notFound'>no palindromes forund</span>
                     }

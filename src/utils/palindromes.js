@@ -81,5 +81,6 @@ export function getAllPalindromesData(text) {
     return {
         allPalindromes: allPalindromesWithoutFormating,
         longestPalindrom,
+        indexes,
     };
 }
