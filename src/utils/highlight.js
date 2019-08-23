@@ -17,7 +17,11 @@ export function findChunksToHighlight(searchWords, text) {
             let chunk = textLower.substr(i, searchWord.length);
 
             let q = i;
-            while (chunk.length === searchWord.length && chunk.match(re)) {
+            while (
+                chunk[0] === searchWord[0] &&
+                chunk.length === searchWord.length &&
+                chunk.match(re)
+            ) {
                 // increase start position if the first symbol matches re
                 // , - ololo -> comma, spaces and hyphen - should not be treated as start position
                 if (chunk[0].match(re)) {
