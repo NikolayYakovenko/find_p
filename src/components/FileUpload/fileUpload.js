@@ -11,6 +11,7 @@ export const FileUpload = (props) => {
                 type='file'
                 accept='.txt'
                 id='textField'
+                ref={props.refElement}
                 onChange={props.handleFileUpload}
             />
             <label className='fileUploadLabel' htmlFor='textField'>
@@ -35,4 +36,5 @@ export const FileUpload = (props) => {
 
 FileUpload.propTypes = {
     handleFileUpload: PropTypes.func.isRequired,
+    refElement: PropTypes.object,
 };

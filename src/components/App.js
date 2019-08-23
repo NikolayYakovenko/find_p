@@ -12,15 +12,20 @@ import './app.css';
 
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.fileInputRef = React.createRef();
+    }
+
     state = {
         text: 'А роза, упала. На лапу Азора',
+        textFromInput: '',
         longestPalindrom: null,
         allPalindromes: [],
-        allPalindromesInitial: [],
     };
 
     componentDidMount() {
-        this.handleTextChange(this.state.text);
+        this.findPalindrom(this.state.text);
     }
 
     handleFileUpload = (event) => {
@@ -29,40 +34,39 @@ export default class App extends React.Component {
 
         if (files && files.length) {
             reader.addEventListener('load', (eventValue) => {
-                this.handleTextChange(eventValue.target.result);
+                this.findPalindrom(eventValue.target.result);
             });
 
             reader.readAsText(files[0]);
         }
+        this.fileInputRef.current.value = '';
     }
 
     clearText = () => {
         this.setState({
             text: '',
+            textFromInput: '',
             allPalindromes: [],
-            allPalindromesInitial: [],
             longestPalindrom: null,
         });
     }
 
     handleTextChange = (text) => {
+        this.setState({ textFromInput: text });
+    }
+
+    findPalindrom = (text) => {
         const { allPalindromes, longestPalindrom } = getAllPalindromesData(text);
 
         this.setState({
             text,
             allPalindromes,
             longestPalindrom,
-            allPalindromesInitial: allPalindromes,
         });
     }
 
-    handleSearch = (event) => {
-        const text = event.target.value.trim();
-        const { allPalindromesInitial } = this.state;
-
-        this.setState({
-            allPalindromes: allPalindromesInitial.filter(p => p.includes(text)),
-        });
+    findPalindromFromInput = () => {
+        this.findPalindrom(this.state.textFromInput);
     }
 
     formSubmit = event => event.preventDefault();
@@ -73,7 +77,10 @@ export default class App extends React.Component {
                 <fieldset className='fieldRow'>
                     <div className='fileUploadWrapper'>
                         <div className='fileUploadItem'>
-                            <FileUpload handleFileUpload={this.handleFileUpload} />
+                            <FileUpload
+                                refElement={this.fileInputRef}
+                                handleFileUpload={this.handleFileUpload}
+                            />
                         </div>
                         <div className='fileUploadItem'>
                             <button
@@ -86,64 +93,58 @@ export default class App extends React.Component {
                         </div>
                     </div>
                 </fieldset>
+                {this.state.text ?
+                    <fieldset className='fieldRow'>
+                        <p className='label'>
+                            Parsed text
+                        </p>
+                        <Highlight
+                            searchWords={this.state.allPalindromes}
+                            textToHighlight={this.state.text}
+                        />
+                    </fieldset>
+                    : null
+                }
                 <fieldset className='fieldRow'>
                     <label className='label' htmlFor='parsedText'>
-                        Parsed text
+                        Text to find a palindrome
                         <textarea
                             className='textField'
-                            value={this.state.text}
+                            value={this.state.textFromInput}
                             id='parsedText'
-                            rows={5}
+                            rows={3}
                             placeholder='Type a text'
                             onChange={event => this.handleTextChange(event.target.value)}
                         />
                     </label>
+                    <button
+                        disabled={!this.state.textFromInput}
+                        className='button'
+                        onClick={this.findPalindromFromInput}
+                    >
+                        Search
+                    </button>
                 </fieldset>
                 <fieldset className='fieldRow'>
-                    <div className='search'>
-                        <input
-                            className='textField searchField'
-                            type='text'
-                            id='searchField'
-                            placeholder='Filter palindrome by name'
-                            onChange={this.handleSearch}
-                        />
-                    </div>
+                    <p className='label'>
+                        All found palindromes
+                    </p>
+                    {this.state.allPalindromes.length ?
+                        this.state.allPalindromes.map(p => <div className='palindrom'>{p}</div>)
+                        :
+                        <span className='notFound'>no palindromes forund</span>
+                    }
                 </fieldset>
                 <fieldset className='fieldRow'>
-                    <label className='label' htmlFor='allPalindromes'>
-                        All palindromes
-                        <textarea
-                            className='textField'
-                            value={this.state.allPalindromes.join(' ')}
-                            id='allPalindromes'
-                            readOnly
-                            placeholder='Here will be all found palindromes'
-                            rows={5}
-                        />
-                    </label>
+                    <p className='label'>
+                        Longest palindrome
+                    </p>
+                    {this.state.longestPalindrom ?
+                        <div className='palindrom'>{this.state.longestPalindrom}</div>
+                        :
+                        <span className='notFound'>no palindromes forund</span>
+                    }
                 </fieldset>
-                <fieldset className='fieldRow'>
-                    <Highlight
-                        searchWords={this.state.allPalindromes}
-                        textToHighlight={this.state.text}
-                    />
-                </fieldset>
-                {this.state.longestPalindrom ?
-                    <fieldset className='fieldRow'>
-                        <label className='label' htmlFor='longest'>
-                            Longest palindrome
-                            <textarea
-                                className='textField'
-                                value={this.state.longestPalindrom}
-                                id='longest'
-                                readOnly
-                                rows={2}
-                            />
-                        </label>
-                    </fieldset>
-                    : null
-                }
             </form>
         );
     }

@@ -1,6 +1,7 @@
-export function findChunksToHighlight({ searchWords, textToHighlight }) {
+export function findChunksToHighlight(searchWords, text) {
     const chunks = [];
-    const textLower = textToHighlight.toLowerCase();
+    const uniquePalindromes = new Set();
+    const textLower = text.toLowerCase();
     // simple regexp to find non letter symbols
     const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
 
@@ -16,7 +17,7 @@ export function findChunksToHighlight({ searchWords, textToHighlight }) {
             let chunk = textLower.substr(i, searchWord.length);
 
             let q = i;
-            while (chunk.match(re)) {
+            while (chunk.length === searchWord.length && chunk.match(re)) {
                 // increase start position if the first symbol matches re
                 // , - ololo -> comma, spaces and hyphen - should not be treated as start position
                 if (chunk[0].match(re)) {
@@ -45,12 +46,13 @@ export function findChunksToHighlight({ searchWords, textToHighlight }) {
                 q += 1;
             }
 
-            if (chunk === searchWord) {
+            if (chunk === searchWord && !uniquePalindromes.has(chunk)) {
                 end = searchWord.length + end + i;
                 chunks.push({
                     start,
                     end,
                 });
+                uniquePalindromes.add(chunk);
             }
         }
     });

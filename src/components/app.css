@@ -42,11 +42,6 @@
     }
 }
 
-.search {
-    display: flex;
-    flex-direction: row;
-}
-
 .button {
     flex: 0 0 200px;
     padding: 15px;
@@ -58,6 +53,7 @@
     border: 2px solid #d3394c;
     outline: 0 none;
     transition: all 0.1s linear;
+    border-radius: 3px;
 }
 
 .button:hover,
@@ -72,7 +68,6 @@
 .buttonThemeSimple {
     background-color: #fff;
     color: #d3394c;
-    border-radius: 3px;
 }
 
 .buttonThemeSimple:hover,
@@ -81,13 +76,10 @@
     color: #fff;
 }
 
-.searchField {
-    margin-right: -2px;
-    border-radius: 3px 0 0 3px;
-    outline: 0 none;
-}
-.searchField:focus {
-    border-color: #3960d3;
+.button[disabled] {
+    background-color: #d0d0d0;
+    border-color: #d0d0d0;
+    cursor: default;
 }
 
 .fileUploadInput:focus + .fileUploadLabel,
@@ -108,4 +100,16 @@
 
 .textField:focus {
     border-color: #3960d3;
+}
+
+.palindrom {
+    margin-top: 5px;
+    padding: 2px 5px;
+    background-color: #d0d4dc;
+    border-radius: 3px;
+}
+
+.notFound {
+    color: #929292;
+    font-size: 16px;
 }

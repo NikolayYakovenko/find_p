@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Highlighter from 'react-highlight-words';
 
-import { findChunksToHighlight } from '../../utils/highlight';
-
 import './highlight.css';
 
 
@@ -16,7 +14,6 @@ export function Highlight(props) {
             textToHighlight={textToHighlight}
             autoEscape
             highlightClassName='highlighted'
-            findChunks={findChunksToHighlight}
         />
     );
 }
