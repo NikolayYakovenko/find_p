@@ -5,6 +5,7 @@
     ],
     "parser": "babel-eslint",
     "rules": {
+        "arrow-parens": ["error", "always"],
         "no-case-declarations": 0,
         "no-underscore-dangle": 0,
         "no-mixed-operators": [

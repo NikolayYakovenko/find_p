@@ -29,6 +29,7 @@
     "eslint-plugin-react": "7.9.1",
     "file-loader": "4.2.0",
     "html-webpack-plugin": "3.2.0",
+    "prettier": "2.7.1",
     "style-loader": "1.0.0",
     "webpack": "4.39.1",
     "webpack-cli": "3.3.6",
@@ -39,8 +40,8 @@
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-highlight-words": "0.16.0"
   }
 }

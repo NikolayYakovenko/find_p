@@ -1,9 +1,10 @@
+// regexp to find non letter symbols
+const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
+
 export function findChunksToHighlight(searchWords, text) {
     const chunks = [];
     const uniquePalindromes = new Set();
     const textLower = text.toLowerCase();
-    // simple regexp to find non letter symbols
-    const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
 
     searchWords.forEach((word) => {
         const searchWord = word.toLowerCase();

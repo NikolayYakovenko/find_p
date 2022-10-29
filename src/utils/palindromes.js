@@ -1,17 +1,19 @@
-import { findChunksToHighlight } from '../utils/highlight';
-
+import { findChunksToHighlight } from './highlight';
 
 function formatString(string) {
     const re = /[.,?\-:;=+#%()&$№"_/*\s]/gi;
-    return string.toLowerCase().split(re).filter(text => text !== '');
+    return string
+        .toLowerCase()
+        .split(re)
+        .filter((text) => text !== '');
 }
 
 function isPalindromeCheck(text) {
     const textLen = text.length;
-    const minPalindromLength = 3;
+    const minPalindromeLength = 3;
     const textCenter = Math.floor(textLen / 2);
 
-    if (!text || textLen < minPalindromLength) {
+    if (!text || textLen < minPalindromeLength) {
         return false;
     }
 
@@ -26,7 +28,6 @@ function isPalindromeCheck(text) {
 
     return true;
 }
-
 
 function getAllPalindromes(text) {
     const uniquePalindromes = new Set();
@@ -56,7 +57,6 @@ function getAllPalindromes(text) {
 
     return Array.from(uniquePalindromes);
 }
-
 
 export function getAllPalindromesData(text) {
     const allPalindromes = getAllPalindromes(text);
