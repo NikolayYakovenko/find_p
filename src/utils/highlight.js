@@ -1,9 +1,10 @@
+// regexp to find non letter symbols
+const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
+
 export function findChunksToHighlight(searchWords, text) {
     const chunks = [];
     const uniquePalindromes = new Set();
     const textLower = text.toLowerCase();
-    // simple regexp to find non letter symbols
-    const re = /[.,?\-:;=+#%()&$№"_/*\s]+/;
 
     searchWords.forEach((word) => {
         const searchWord = word.toLowerCase();
@@ -63,3 +64,4 @@ export function findChunksToHighlight(searchWords, text) {
 
     return chunks;
 }
+git remote set-url origin https://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@github.com/NikolayYakovenko/find_p.git

@@ -1,10 +1,11 @@
 import 'babel-polyfill';
 
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './components/App';
 
+const rootNode = document.getElementById('root');
+const root = createRoot(rootNode);
 
-const root = document.getElementById('root');
-render(<App />, root);
+root.render(<App />);
