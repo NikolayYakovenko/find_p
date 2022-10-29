@@ -96,7 +96,7 @@ export default class App extends React.Component {
                 </fieldset>
                 {this.state.text ? (
                     <fieldset className='fieldRow'>
-                        <p className='label'>Palindrome Sentence Examples</p>
+                        <p className='label'>Parsed text</p>
                         <Highlight
                             searchWords={this.state.allPalindromes}
                             textToHighlight={this.state.text}

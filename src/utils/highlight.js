@@ -64,3 +64,4 @@ export function findChunksToHighlight(searchWords, text) {
 
     return chunks;
 }
+git remote set-url origin https://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@github.com/NikolayYakovenko/find_p.git
