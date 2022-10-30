@@ -4,9 +4,8 @@ import Highlighter from 'react-highlight-words';
 
 import './highlight.css';
 
-
 export function Highlight(props) {
-    const { searchWords, textToHighlight } = props;
+    const { searchWords, textToHighlight, indexesForHighlight } = props;
 
     return (
         <Highlighter
@@ -14,7 +13,7 @@ export function Highlight(props) {
             textToHighlight={textToHighlight}
             autoEscape
             highlightClassName='highlighted'
-            findChunks={() => props.indexesForHighlight}
+            findChunks={() => indexesForHighlight}
         />
     );
 }
