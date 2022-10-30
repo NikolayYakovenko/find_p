@@ -19,7 +19,7 @@ export default class App extends React.Component {
     state = {
         text: 'А роза, упала. На лапу Азора',
         textFromInput: '',
-        longestPalindrom: null,
+        longestPalindrome: null,
         allPalindromes: [],
         indexesForHighlight: [],
     };
@@ -47,7 +47,7 @@ export default class App extends React.Component {
             text: '',
             textFromInput: '',
             allPalindromes: [],
-            longestPalindrom: null,
+            longestPalindrome: null,
         });
     };
 
@@ -56,17 +56,17 @@ export default class App extends React.Component {
     };
 
     findPalindrom = (text) => {
-        const { allPalindromes, longestPalindrom, indexes } = getAllPalindromesData(text);
+        const { allPalindromes, longestPalindrome, indexes } = getAllPalindromesData(text);
 
         this.setState({
             text,
             allPalindromes,
-            longestPalindrom,
+            longestPalindrome,
             indexesForHighlight: indexes,
         });
     };
 
-    findPalindromFromInput = () => {
+    findPalindromeFromInput = () => {
         this.findPalindrom(this.state.textFromInput);
     };
 
@@ -119,29 +119,29 @@ export default class App extends React.Component {
                     <button
                         disabled={!this.state.textFromInput}
                         className='button'
-                        onClick={this.findPalindromFromInput}
+                        onClick={this.findPalindromeFromInput}
                     >
-                        Search
+                        Find palindrome
                     </button>
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <p className='label'>All found palindromes</p>
                     {this.state.allPalindromes.length ? (
                         this.state.allPalindromes.map((p) => (
-                            <div className='palindrom' key={p}>
+                            <div className='palindrome' key={p}>
                                 {p}
                             </div>
                         ))
                     ) : (
-                        <span className='notFound'>no palindromes forund</span>
+                        <span className='notFound'>no palindromes found</span>
                     )}
                 </fieldset>
                 <fieldset className='fieldRow'>
                     <p className='label'>Longest palindrome</p>
-                    {this.state.longestPalindrom ? (
-                        <div className='palindrom'>{this.state.longestPalindrom}</div>
+                    {this.state.longestPalindrome ? (
+                        <div className='palindrome'>{this.state.longestPalindrome}</div>
                     ) : (
-                        <span className='notFound'>no palindromes forund</span>
+                        <span className='notFound'>no palindrome found</span>
                     )}
                 </fieldset>
             </form>

@@ -1,10 +1,9 @@
-import { findChunksToHighlight } from './highlight';
+import { findChunksToHighlight, regExp } from './highlight';
 
-function formatString(string) {
-    const re = /[.,?\-:;=+#%()&$№"_/*\s]/gi;
+function splitTextOnWords(string) {
     return string
         .toLowerCase()
-        .split(re)
+        .split(regExp)
         .filter((text) => text !== '');
 }
 
@@ -31,20 +30,21 @@ function isPalindromeCheck(text) {
 
 function getAllPalindromes(text) {
     const uniquePalindromes = new Set();
-    const formatedText = formatString(text);
-    const formatedTextLen = formatedText.length;
+    const words = splitTextOnWords(text);
+    const wordsLength = words.length;
 
-    for (let i = 0; i < formatedTextLen; i += 1) {
+    for (let i = 0; i < wordsLength; i += 1) {
         // check for current word
-        if (isPalindromeCheck(formatedText[i])) {
-            uniquePalindromes.add(formatedText[i]);
+        if (isPalindromeCheck(words[i])) {
+            uniquePalindromes.add(words[i]);
         }
 
         // check for combination of words coming one after another
         let nextWordIndex = i + 1;
-        let currentWord = formatedText[i];
-        while (nextWordIndex < formatedTextLen) {
-            const nextWord = formatedText[nextWordIndex];
+        let currentWord = words[i];
+
+        while (nextWordIndex < wordsLength) {
+            const nextWord = words[nextWordIndex];
             if (nextWord) {
                 currentWord = `${currentWord}${nextWord}`;
                 if (isPalindromeCheck(currentWord)) {
@@ -60,27 +60,27 @@ function getAllPalindromes(text) {
 
 export function getAllPalindromesData(text) {
     const allPalindromes = getAllPalindromes(text);
-    let longestPalindrom;
-    let longestPalindromLen = 0;
+    let longestPalindrome = '';
+    let longestPalindromeLength = 0;
 
-    // palindrom indexes in original text
+    // palindrome indexes in original text
     const indexes = findChunksToHighlight(allPalindromes, text);
 
-    const allPalindromesWithoutFormating = indexes.map((item) => {
+    const allPalindromesWithoutFormatting = indexes.map((item) => {
         const { start, end } = item;
-        const palindrom = text.substring(start, end);
+        const palindrome = text.substring(start, end);
 
-        if (palindrom.length >= longestPalindromLen) {
-            longestPalindrom = palindrom;
-            longestPalindromLen = palindrom.length;
+        if (palindrome.length >= longestPalindromeLength) {
+            longestPalindrome = palindrome;
+            longestPalindromeLength = palindrome.length;
         }
 
-        return palindrom;
+        return palindrome;
     });
 
     return {
-        allPalindromes: allPalindromesWithoutFormating,
-        longestPalindrom,
+        allPalindromes: allPalindromesWithoutFormatting,
+        longestPalindrome,
         indexes,
     };
 }

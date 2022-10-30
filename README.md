@@ -1,8 +1,9 @@
 # App to find and highlight palindromes in text.
 
-###
-* All found palindromes
-* Longest palindrome
+### App features:
+* List of all found palindromes.
+* Highlight all palindromes in text.
+* Show the longest palindrome.
 
 ##### Install dependencies:
 ```
